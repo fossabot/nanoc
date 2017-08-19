@@ -21,9 +21,9 @@ module Nanoc::Int
       ensure_identifier_uniqueness(@data_source.layouts, 'layout')
     end
 
-    contract C::None => self
-    def compile
-      Nanoc::Int::Compiler.new_for(self).run_until_end
+    contract C::KeywordArgs[changes: C::Optional[C::Maybe[:any]]] => self
+    def compile(changes: nil)
+      Nanoc::Int::Compiler.new_for(self, changes: changes).run_until_end
       self
     end
 

@@ -19,11 +19,11 @@ module Nanoc::Int
     end
 
     def item_changes
-      @data_source.item_changes
+      @data_source.item_changes.map { |d| [d[0], d[1], d[2].prefix(@items_prefix)] }
     end
 
     def layout_changes
-      @data_source.layout_changes
+      @data_source.layout_changes.map { |d| [d[0], d[1], d[2].prefix(@layouts_prefix)] }
     end
   end
 end

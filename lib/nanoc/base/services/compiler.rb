@@ -4,8 +4,9 @@ module Nanoc::Int
   class Compiler
     include Nanoc::Int::ContractsSupport
 
-    def initialize(site, compiled_content_cache:, checksum_store:, action_sequence_store:, action_provider:, dependency_store:, outdatedness_store:)
+    def initialize(site, changes: nil, compiled_content_cache:, checksum_store:, action_sequence_store:, action_provider:, dependency_store:, outdatedness_store:)
       @site = site
+      @changes = changes
 
       @compiled_content_cache = compiled_content_cache
       @checksum_store         = checksum_store
@@ -17,9 +18,9 @@ module Nanoc::Int
       @snapshot_repo = Nanoc::Int::SnapshotRepo.new
     end
 
-    contract Nanoc::Int::Site => Nanoc::Int::Compiler
-    def self.new_for(site)
-      Nanoc::Int::CompilerLoader.new.load(site)
+    contract Nanoc::Int::Site, C::KeywordArgs[changes: C::Optional[C::Maybe[:any]]] => Nanoc::Int::Compiler
+    def self.new_for(site, changes: nil)
+      Nanoc::Int::CompilerLoader.new.load(site, changes: changes)
     end
 
     def run_until_preprocessed

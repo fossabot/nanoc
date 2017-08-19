@@ -4,11 +4,17 @@ describe Nanoc::Int::PrefixedDataSource, stdio: true do
   let(:klass) do
     Class.new(Nanoc::DataSource) do
       def item_changes
-        %i[one_foo one_bar]
+        [
+          [:some_type, :item, Nanoc::Identifier.new('/item')],
+          [:some_type, :item, Nanoc::Identifier.new('/item_other')],
+        ]
       end
 
       def layout_changes
-        %i[one_foo one_bar]
+        [
+          [:some_type, :layout, Nanoc::Identifier.new('/layout')],
+          [:some_type, :layout, Nanoc::Identifier.new('/layout_other')],
+        ]
       end
     end
   end
@@ -25,7 +31,13 @@ describe Nanoc::Int::PrefixedDataSource, stdio: true do
     subject { data_source.item_changes }
 
     it 'yields changes from the original' do
-      expect(subject).to eq(original_data_source.item_changes)
+      expected =
+        [
+          [:some_type, :item, Nanoc::Identifier.new('/itemz/item')],
+          [:some_type, :item, Nanoc::Identifier.new('/itemz/item_other')],
+        ]
+
+      expect(subject).to eq(expected)
     end
   end
 
@@ -33,7 +45,13 @@ describe Nanoc::Int::PrefixedDataSource, stdio: true do
     subject { data_source.layout_changes }
 
     it 'yields changes from the original' do
-      expect(subject).to eq(original_data_source.layout_changes)
+      expected =
+        [
+          [:some_type, :layout, Nanoc::Identifier.new('/layoutz/layout')],
+          [:some_type, :layout, Nanoc::Identifier.new('/layoutz/layout_other')],
+        ]
+
+      expect(subject).to eq(expected)
     end
   end
 end

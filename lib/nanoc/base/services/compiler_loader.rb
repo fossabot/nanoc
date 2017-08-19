@@ -3,7 +3,7 @@
 module Nanoc::Int
   # @api private
   class CompilerLoader
-    def load(site, action_provider: nil)
+    def load(site, action_provider: nil, changes: nil)
       action_sequence_store = Nanoc::Int::ActionSequenceStore.new(site: site)
 
       dependency_store =
@@ -26,6 +26,7 @@ module Nanoc::Int
         )
 
       params = {
+        changes: changes,
         compiled_content_cache: compiled_content_cache,
         checksum_store: checksum_store,
         action_sequence_store: action_sequence_store,

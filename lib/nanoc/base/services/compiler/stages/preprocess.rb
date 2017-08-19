@@ -2,6 +2,8 @@
 
 module Nanoc::Int::Compiler::Stages
   class Preprocess
+    include Nanoc::Int::ContractsSupport
+
     def initialize(action_provider:, site:, dependency_store:, checksum_store:)
       @action_provider = action_provider
       @site = site
@@ -9,6 +11,7 @@ module Nanoc::Int::Compiler::Stages
       @checksum_store = checksum_store
     end
 
+    contract C::None => C::Any
     def run
       return if @site.preprocessed?
 

@@ -75,20 +75,27 @@ module Nanoc::DataSources
     end
 
     def item_changes
-      changes_for_dir(content_dir_name)
+      changes_for_dir(content_dir_name, :item)
     end
 
     def layout_changes
-      changes_for_dir(layouts_dir_name)
+      changes_for_dir(layouts_dir_name, :layout)
     end
 
-    def changes_for_dir(dir)
+    def changes_for_dir(dir, type)
       require 'listen'
+
+      root = Pathname.new(File.expand_path(dir))
+      rel = ->(fn) { '/' + Pathname.new(fn).relative_path_from(root).to_s }
+
+      # FIXME: what if content file already exists, and metadata is added?
 
       Nanoc::ChangesStream.new do |cl|
         listener =
-          Listen.to(dir, latency: 0.0, wait_for_delay: 0.0) do |_modifieds, _addeds, _deleteds|
-            cl.unknown
+          Listen.to(dir, latency: 0.0, wait_for_delay: 0.0) do |modifieds, addeds, deleteds|
+            cl.document_added(type, addeds.map { |fn| identifier_for_filename(rel[fn]) })
+            cl.document_modified(type, modifieds.map { |fn| identifier_for_filename(rel[fn]) })
+            cl.document_deleted(type, deleteds.map { |fn| identifier_for_filename(rel[fn]) })
           end
 
         listener.start

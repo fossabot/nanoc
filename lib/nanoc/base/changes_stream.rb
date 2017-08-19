@@ -8,11 +8,23 @@ module Nanoc
       end
 
       def unknown
-        @y << :unknown
+        @y << [:unknown]
       end
 
       def lib
-        @y << :lib
+        @y << [:lib]
+      end
+
+      def document_added(type, documents)
+        documents.each { |d| @y << [:document_added, type, d] }
+      end
+
+      def document_modified(type, documents)
+        documents.each { |d| @y << [:document_modified, type, d] }
+      end
+
+      def document_deleted(type, identifiers)
+        identifiers.each { |i| @y << [:document_deleted, type, i] }
       end
 
       def to_stop(&block)

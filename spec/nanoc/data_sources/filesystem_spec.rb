@@ -98,7 +98,12 @@ describe Nanoc::DataSources::Filesystem do
       sleep 0.3
       File.write('content/wat.md', 'stuff')
 
-      expect(q.pop).to eq(:unknown)
+      res = q.pop
+      expect(res).not_to be_nil
+      expect(res[0]).to eq(:document_added)
+      expect(res[1]).to eq(:item)
+      expect(res[2]).to be_a(Nanoc::Identifier)
+      expect(res[2].to_s).to eq('/wat/')
       subject.stop
     end
   end
@@ -121,7 +126,12 @@ describe Nanoc::DataSources::Filesystem do
       sleep 0.3
       File.write('layouts/wat.md', 'stuff')
 
-      expect(q.pop).to eq(:unknown)
+      res = q.pop
+      expect(res).not_to be_nil
+      expect(res[0]).to eq(:document_added)
+      expect(res[1]).to eq(:layout)
+      expect(res[2]).to be_a(Nanoc::Identifier)
+      expect(res[2].to_s).to eq('/wat/')
       subject.stop
     end
   end

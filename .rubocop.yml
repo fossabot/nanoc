@@ -71,6 +71,9 @@ Style/SafeNavigation:
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
+# Interferes with RDL
+Lint/Void:
+  Enabled: false
 
 
 # ----- DISABLED (security) -----

@@ -133,14 +133,6 @@ shared_examples 'a mutable document view' do
         expect(view.identifier).to eq('/about.adoc')
       end
     end
-
-    context 'given anything else' do
-      let(:arg) { :donkey }
-
-      it 'raises' do
-        expect { subject }.to raise_error(Nanoc::Identifier::NonCoercibleObjectError)
-      end
-    end
   end
 
   describe '#update_attributes' do

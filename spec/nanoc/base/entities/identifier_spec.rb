@@ -23,14 +23,6 @@ describe Nanoc::Identifier do
         expect(subject).to be_full
       end
     end
-
-    context 'given something else' do
-      let(:arg) { 12_345 }
-
-      it 'raises' do
-        expect { subject }.to raise_error(Nanoc::Identifier::NonCoercibleObjectError)
-      end
-    end
   end
 
   describe '#initialize' do
@@ -97,13 +89,6 @@ describe Nanoc::Identifier do
     context 'default type' do
       it 'is full' do
         expect(described_class.new('/foo')).to be_full
-      end
-    end
-
-    context 'other args specified' do
-      it 'errors' do
-        expect { described_class.new('?', animal: :donkey) }
-          .to raise_error(ArgumentError)
       end
     end
   end

@@ -24,6 +24,9 @@ require 'ref'
 require 'ddplugin'
 require 'addressable'
 
+# Load init
+require_relative 'nanoc/types'
+
 # Load general requirements
 require 'cgi'
 require 'digest'

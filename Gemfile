@@ -17,6 +17,7 @@ group :devel do
   gem 'pry'
   gem 'rainbow', '~> 2.1'
   gem 'rake'
+  gem 'rdl'
   gem 'rdoc', '~> 5.0'
   gem 'rspec'
   gem 'rspec-its', '~> 1.2'

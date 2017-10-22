@@ -192,6 +192,7 @@ module Nanoc::CLI
       'mime/types'     => 'mime-types',
       'nokogiri'       => 'nokogiri',
       'nokogumbo'      => 'nokogumbo',
+      'notiffany'      => 'notiffany',
       'pry'            => 'pry',
       'rack'           => 'rack',
       'rack/cache'     => 'rack-cache',

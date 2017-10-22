@@ -92,14 +92,26 @@ module Nanoc::Extra
         compiler.run_until_end
       end
 
+      Thread.new do
+        notifier = Notiffany.connect
+        notifier.notify(
+          'Site compiled!',
+          title: 'Nanoc',
+          image: :success,
+          timeout: 3,
+          group: 'nanoc',
+          remove: 'nanoc',
+          contentImage: __dir__ + '/assets/../../../nanoc.png',
+        )
+        notifier.disconnect
+      end
+
       time_after = Time.now
       puts "Site compiled in #{format('%.2f', time_after - time_before)}s."
       puts
     end
 
     def gen_lib_changes
-      require 'listen'
-
       Nanoc::ChangesStream.new do |cl|
         opts = {
           latency: 0.0,
@@ -113,8 +125,6 @@ module Nanoc::Extra
     end
 
     def gen_config_and_rules_changes
-      require 'listen'
-
       Nanoc::ChangesStream.new do |cl|
         opts = {
           only: /(\/|\A)(nanoc\.yaml|config\.yaml|rules|Rules|rules\.rb|Rules\.rb)\z/,

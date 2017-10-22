@@ -22,6 +22,8 @@ end
 require 'addressable'
 require 'ddplugin'
 require 'hamster'
+require 'listen'
+require 'notiffany'
 require 'ref'
 require 'slow_enumerator_tools'
 

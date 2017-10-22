@@ -83,8 +83,6 @@ module Nanoc::DataSources
     end
 
     def changes_for_dir(dir)
-      require 'listen'
-
       Nanoc::ChangesStream.new do |cl|
         listener =
           Listen.to(dir, latency: 0.0, wait_for_delay: 0.0) do |_modifieds, _addeds, _deleteds|

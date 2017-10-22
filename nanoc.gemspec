@@ -26,6 +26,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('cri', '~> 2.8')
   s.add_runtime_dependency('ddplugin', '~> 1.0')
   s.add_runtime_dependency('hamster', '~> 3.0')
+  s.add_runtime_dependency('listen', '~> 3.0')
+  s.add_runtime_dependency('notiffany', '~> 0.1')
   s.add_runtime_dependency('ref', '~> 2.0')
   s.add_runtime_dependency('slow_enumerator_tools', '~> 1.0')
 
